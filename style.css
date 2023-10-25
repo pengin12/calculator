@@ -17,16 +17,20 @@ button {
   font-size: 20px;
   font-family: sans-serif;
   padding: 0;
+  cursor: pointer;
 }
 
 .display {
+  max-width: 346px;
   width: auto;
-  height: 136px;
+  min-height: 136px;
   background-color: white;
+  font-size: 32px;
+  overflow-wrap: break-word;
+  margin-bottom: 20px;
 }
 
 .calculator {
-  height: 540px;
   width: 350px;
   padding: 20px;
   border-radius: 15px;

@@ -29,3 +29,9 @@ function operate(firstNumber, operator, secondNumber) {
     return divide(firstNumber, secondNumber);
   }
 }
+
+document.querySelectorAll(".smallButton").forEach((button) => {
+  button.addEventListener("click", () => {
+    document.querySelector(".display").innerText += button.innerText;
+  })
+});
