@@ -30,8 +30,39 @@ function operate(firstNumber, operator, secondNumber) {
   }
 }
 
-document.querySelectorAll(".smallButton").forEach((button) => {
+let operateString = "";
+let displayText;
+
+document.querySelectorAll(".notEqual").forEach((button) => {
   button.addEventListener("click", () => {
-    document.querySelector(".display").innerText += button.innerText;
+    operateString += button.innerText;
+    displayText = document.querySelector(".display").innerText += button.innerText;
   })
+});
+
+document.querySelector(".add").addEventListener("click", () => {
+  operateString += "+";
+  displayText = document.querySelector(".display").innerText += "+";
+});
+
+document.querySelector(".subtract").addEventListener("click", () => {
+  operateString += "-";
+  displayText = document.querySelector(".display").innerText += "−";
+});
+
+document.querySelector(".multiply").addEventListener("click", () => {
+  operateString += "*";
+  displayText = document.querySelector(".display").innerText += "×";
+});
+
+document.querySelector(".divide").addEventListener("click", () => {
+  operateString += "/";
+  displayText = document.querySelector(".display").innerText += "÷";
+});
+
+document.querySelector(".equal").addEventListener("click", () => {
+  let numbers = operateString.split(/[\+\-\*\/]/g);
+  let operator = operateString.match(/[\+\-\*\/]/g);
+  document.querySelector(".display").innerText = "";
+  document.querySelector(".display").innerText += operate(numbers[0], operator[0], numbers[1]);
 });
