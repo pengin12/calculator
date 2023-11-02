@@ -64,5 +64,12 @@ document.querySelector(".equal").addEventListener("click", () => {
   let numbers = operateString.split(/[\+\-\*\/]/g);
   let operator = operateString.match(/[\+\-\*\/]/g);
   document.querySelector(".display").innerText = "";
-  document.querySelector(".display").innerText += operate(numbers[0], operator[0], numbers[1]);
+  let result = document.querySelector(".display").innerText += operate(numbers[0], operator[0], numbers[1]);
+  operateString = result;
+});
+
+document.querySelector(".clear").addEventListener("click", () => {
+  operateString = "";
+  displayText = "";
+  document.querySelector(".display").innerText = "";
 });
