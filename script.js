@@ -107,3 +107,8 @@ document.querySelector(".clear").addEventListener("click", () => {
   displayText = "";
   document.querySelector(".display").innerText = "";
 });
+
+document.querySelector(".delete").addEventListener("click", () => {
+  operateString = operateString.substring(0, operateString.length - 1);
+  document.querySelector(".display").innerText = operateString;
+});
