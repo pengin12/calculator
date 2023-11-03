@@ -46,7 +46,7 @@ document.querySelectorAll(".notEqual").forEach((button) => {
 });
 
 document.querySelector(".add").addEventListener("click", () => {
-  if (countOperator(operateString) === 1) {
+  if (countOperator(operateString) >= 1) {
     toEqual();
   }
   operateString += "+";
@@ -54,7 +54,7 @@ document.querySelector(".add").addEventListener("click", () => {
 });
 
 document.querySelector(".subtract").addEventListener("click", () => {
-  if (countOperator(operateString) === 1) {
+  if (countOperator(operateString) >= 1) {
     toEqual();
   }
   operateString += "-";
@@ -62,7 +62,7 @@ document.querySelector(".subtract").addEventListener("click", () => {
 });
 
 document.querySelector(".multiply").addEventListener("click", () => {
-  if (countOperator(operateString) === 1) {
+  if (countOperator(operateString) >= 1) {
     toEqual();
   }
   operateString += "*";
@@ -70,7 +70,7 @@ document.querySelector(".multiply").addEventListener("click", () => {
 });
 
 document.querySelector(".divide").addEventListener("click", () => {
-  if (countOperator(operateString) === 1) {
+  if (countOperator(operateString) >= 1) {
     toEqual();
   }
   operateString += "/";
@@ -78,11 +78,24 @@ document.querySelector(".divide").addEventListener("click", () => {
 });
 
 function toEqual() {
-  let numbers = operateString.split(operatorRegex);
-  let operator = operateString.match(operatorRegex);
-  document.querySelector(".display").innerText = "";
-  let result = document.querySelector(".display").innerText += operate(numbers[0], operator[0], numbers[1]);
-  operateString = result;
+  if (countOperator(operateString) === 2 && operateString.charAt(0) === "-") {
+    let operator = String(operateString.match(operatorRegex).splice(1));
+    let numbers = operateString.split(operatorRegex);
+    numbers.splice(0, 1);
+    numbers[0] = "-" + numbers[0];
+    let result = operateString = String(operate(numbers[0], operator, numbers[1]));
+    document.querySelector(".display").innerText = result;
+
+  } else if (countOperator(operateString) <= 1) {
+    let numbers = operateString.split(operatorRegex);
+    let operator = operateString.match(operatorRegex);
+    let result = document.querySelector(".display").innerText = operate(numbers[0], operator[0], numbers[1]);
+    operateString = result;
+
+  } else {
+    operateString = "";
+    document.querySelector(".display").innerText = "ERROR!";
+  }
 }
 
 document.querySelector(".equal").addEventListener("click", () => {
