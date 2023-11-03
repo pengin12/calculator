@@ -46,7 +46,7 @@ document.querySelectorAll(".notEqual").forEach((button) => {
 });
 
 document.querySelector(".add").addEventListener("click", () => {
-  if (countOperator(operateString) >= 1) {
+  if (countOperator(operateString) >= 1 && operatorRegex.test(operateString.slice(-1)) === false) {
     toEqual();
   }
   operateString += "+";
@@ -54,7 +54,7 @@ document.querySelector(".add").addEventListener("click", () => {
 });
 
 document.querySelector(".subtract").addEventListener("click", () => {
-  if (countOperator(operateString) >= 1) {
+  if (countOperator(operateString) >= 1 && operatorRegex.test(operateString.slice(-1)) === false) {
     toEqual();
   }
   operateString += "-";
@@ -62,7 +62,7 @@ document.querySelector(".subtract").addEventListener("click", () => {
 });
 
 document.querySelector(".multiply").addEventListener("click", () => {
-  if (countOperator(operateString) >= 1) {
+  if (countOperator(operateString) >= 1 && operatorRegex.test(operateString.slice(-1)) === false) {
     toEqual();
   }
   operateString += "*";
@@ -70,7 +70,7 @@ document.querySelector(".multiply").addEventListener("click", () => {
 });
 
 document.querySelector(".divide").addEventListener("click", () => {
-  if (countOperator(operateString) >= 1) {
+  if (countOperator(operateString) >= 1 && operatorRegex.test(operateString.slice(-1)) === false) {
     toEqual();
   }
   operateString += "/";
