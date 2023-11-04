@@ -99,27 +99,42 @@ document.querySelector(".divide").addEventListener("click", () => {
   displayText = document.querySelector(".display").innerText += "÷";
 });
 
+function countDot(string) {
+  return string.replace(/[^.]/g, "").length;
+}
+
 function toEqual() {
   if (countOperator(operateString) === 2 && operateString.charAt(0) === "-" && operateString !== "" && operateString.split(operatorRegex)[2] !== "") {
-    let operator = String(operateString.match(operatorRegex).splice(1));
+    let operator = operateString.match(operatorRegex);
     let numbers = operateString.split(operatorRegex);
-    numbers.splice(0, 1);
-    numbers[0] = "-" + numbers[0];
-    let result = operateString = String(operate(numbers[0], operator, numbers[1]));
+    if (countDot(numbers[1]) > 1 || countDot(numbers[2]) > 1) {
+      operateString = "";
+      displayText = "";
+      document.querySelector(".display").innerText = "ERROR!";
+    } else {
+    numbers[1] = "-" + numbers[1];
+    let result = operateString = String(operate(numbers[1], operator[1], numbers[2]));
     displayText = document.querySelector(".display").innerText = result;
+    }
 
   } else if (countOperator(operateString) <= 1 && operateString !== "" && operateString.split(operatorRegex)[1] !== "") {
     let numbers = operateString.split(operatorRegex);
     let operator = operateString.match(operatorRegex);
-    let result = operate(numbers[0], operator[0], numbers[1]);
-    if (result === "ERROR!") {
+    if (countDot(numbers[0]) > 1 || countDot(numbers[1]) > 1) {
       operateString = "";
       displayText = "";
-      document.querySelector(".display").innerText = result;
+      document.querySelector(".display").innerText = "ERROR!";
     } else {
-      operateString = String(result);
-      displayText = String(result);
-      document.querySelector(".display").innerText = result;
+      let result = operate(numbers[0], operator[0], numbers[1]);
+      if (result === "ERROR!") {
+        operateString = "";
+        displayText = "";
+        document.querySelector(".display").innerText = result;
+      } else {
+        operateString = String(result);
+        displayText = String(result);
+        document.querySelector(".display").innerText = result;
+      }
     }
 
   } else {
