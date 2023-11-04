@@ -20,6 +20,10 @@ button {
   cursor: pointer;
 }
 
+button:hover {
+  background-image: linear-gradient(rgb(0 0 0/10%) 0 0);
+}
+
 .display {
   max-width: 346px;
   width: auto;

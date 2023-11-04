@@ -100,7 +100,7 @@ document.querySelector(".divide").addEventListener("click", () => {
 });
 
 function toEqual() {
-  if (countOperator(operateString) === 2 && operateString.charAt(0) === "-" && operateString !== "") {
+  if (countOperator(operateString) === 2 && operateString.charAt(0) === "-" && operateString !== "" && operateString.split(operatorRegex)[2] !== "") {
     let operator = String(operateString.match(operatorRegex).splice(1));
     let numbers = operateString.split(operatorRegex);
     numbers.splice(0, 1);
@@ -108,7 +108,7 @@ function toEqual() {
     let result = operateString = String(operate(numbers[0], operator, numbers[1]));
     displayText = document.querySelector(".display").innerText = result;
 
-  } else if (countOperator(operateString) <= 1 && operateString !== "") {
+  } else if (countOperator(operateString) <= 1 && operateString !== "" && operateString.split(operatorRegex)[1] !== "") {
     let numbers = operateString.split(operatorRegex);
     let operator = operateString.match(operatorRegex);
     let result = operate(numbers[0], operator[0], numbers[1]);
