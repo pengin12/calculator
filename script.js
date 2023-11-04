@@ -25,8 +25,10 @@ function operate(firstNumber, operator, secondNumber) {
     return subtract(firstNumber, secondNumber);
   } else if (operator === "*") {
     return multiply(firstNumber, secondNumber);
-  } else if (operator === "/") {
-    return divide(firstNumber, secondNumber);
+  } else if (operator === "/" && secondNumber === "0") {
+    return "ERROR!";
+  } else {
+  return divide(firstNumber, secondNumber);
   }
 }
 
@@ -40,12 +42,20 @@ function countOperator(string) {
 
 document.querySelectorAll(".notEqual").forEach((button) => {
   button.addEventListener("click", () => {
+    if (document.querySelector(".display").innerText === "ERROR!") {
+      operateString = "";
+      displayText = document.querySelector(".display").innerText = "";
+    }
     operateString += button.innerText;
     displayText = document.querySelector(".display").innerText += button.innerText;
   })
 });
 
 document.querySelector(".add").addEventListener("click", () => {
+  if (document.querySelector(".display").innerText === "ERROR!") {
+    operateString = "";
+    displayText = document.querySelector(".display").innerText = "";
+  }
   if (countOperator(operateString) >= 1 && operatorRegex.test(operateString.slice(-1)) === false) {
     toEqual();
   }
@@ -54,6 +64,10 @@ document.querySelector(".add").addEventListener("click", () => {
 });
 
 document.querySelector(".subtract").addEventListener("click", () => {
+  if (document.querySelector(".display").innerText === "ERROR!") {
+    operateString = "";
+    displayText = document.querySelector(".display").innerText = "";
+  }
   if (countOperator(operateString) >= 1 && operatorRegex.test(operateString.slice(-1)) === false) {
     toEqual();
   }
@@ -62,6 +76,10 @@ document.querySelector(".subtract").addEventListener("click", () => {
 });
 
 document.querySelector(".multiply").addEventListener("click", () => {
+  if (document.querySelector(".display").innerText === "ERROR!") {
+    operateString = "";
+    displayText = document.querySelector(".display").innerText = "";
+  }
   if (countOperator(operateString) >= 1 && operatorRegex.test(operateString.slice(-1)) === false) {
     toEqual();
   }
@@ -70,6 +88,10 @@ document.querySelector(".multiply").addEventListener("click", () => {
 });
 
 document.querySelector(".divide").addEventListener("click", () => {
+  if (document.querySelector(".display").innerText === "ERROR!") {
+    operateString = "";
+    displayText = document.querySelector(".display").innerText = "";
+  }
   if (countOperator(operateString) >= 1 && operatorRegex.test(operateString.slice(-1)) === false) {
     toEqual();
   }
@@ -78,19 +100,27 @@ document.querySelector(".divide").addEventListener("click", () => {
 });
 
 function toEqual() {
-  if (countOperator(operateString) === 2 && operateString.charAt(0) === "-") {
+  if (countOperator(operateString) === 2 && operateString.charAt(0) === "-" && operateString !== "") {
     let operator = String(operateString.match(operatorRegex).splice(1));
     let numbers = operateString.split(operatorRegex);
     numbers.splice(0, 1);
     numbers[0] = "-" + numbers[0];
     let result = operateString = String(operate(numbers[0], operator, numbers[1]));
-    document.querySelector(".display").innerText = result;
+    displayText = document.querySelector(".display").innerText = result;
 
-  } else if (countOperator(operateString) <= 1) {
+  } else if (countOperator(operateString) <= 1 && operateString !== "") {
     let numbers = operateString.split(operatorRegex);
     let operator = operateString.match(operatorRegex);
-    let result = document.querySelector(".display").innerText = operate(numbers[0], operator[0], numbers[1]);
-    operateString = result;
+    let result = operate(numbers[0], operator[0], numbers[1]);
+    if (result === "ERROR!") {
+      operateString = "";
+      displayText = "";
+      document.querySelector(".display").innerText = result;
+    } else {
+      operateString = String(result);
+      displayText = String(result);
+      document.querySelector(".display").innerText = result;
+    }
 
   } else {
     operateString = "";
@@ -109,6 +139,10 @@ document.querySelector(".clear").addEventListener("click", () => {
 });
 
 document.querySelector(".delete").addEventListener("click", () => {
+  if (document.querySelector(".display").innerText === "ERROR!" || document.querySelector(".display").innerText === "") {
+    operateString = "";
+    displayText = document.querySelector(".display").innerText = "";
+  }
   operateString = operateString.substring(0, operateString.length - 1);
-  document.querySelector(".display").innerText = operateString;
+  document.querySelector(".display").innerText = document.querySelector(".display").innerText.slice(0, -1);
 });
