@@ -161,3 +161,37 @@ document.querySelector(".delete").addEventListener("click", () => {
   operateString = operateString.substring(0, operateString.length - 1);
   document.querySelector(".display").innerText = document.querySelector(".display").innerText.slice(0, -1);
 });
+
+document.querySelector("body").addEventListener("keydown", (event) => {
+  for (let i = 0; i < 10; i++) {
+    if (event.key === `${i}`) {
+      event.preventDefault();
+      document.getElementById(`${i}`).click();
+    }
+  }
+  if (event.key === "+") {
+    event.preventDefault();
+    document.querySelector(".add").click();
+  } else if (event.key === "-") {
+    event.preventDefault();
+    document.querySelector(".subtract").click();
+  } else if (event.key === "*") {
+    event.preventDefault();
+    document.querySelector(".multiply").click();
+  } else if (event.key === "/") {
+    event.preventDefault();
+    document.querySelector(".divide").click();
+  } else if (event.key === ".") {
+    event.preventDefault();
+    document.getElementById("dot").click();
+  } else if (event.key === "Enter") {
+    event.preventDefault();
+    document.querySelector(".equal").click();
+  } else if (event.key === "Backspace") {
+    event.preventDefault();
+    document.querySelector(".delete").click();
+  } else if (event.key === "Delete") {
+    event.preventDefault();
+    document.querySelector(".clear").click();
+  }
+});
